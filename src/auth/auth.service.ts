@@ -39,19 +39,19 @@ export class AuthService {
     }
     const token = await this.generateToken({
       id: user.id,
-      fullname: user.fullname,
+      name: user.name,
       email: user.email,
     });
     return { token };
   }
 
   async register(updateAuthDto: UpdateAuthDto): Promise<any> {
-    const { fullname, email, password } = updateAuthDto;
+    const { name, email, password } = updateAuthDto;
     const hashedPassword = await hash(password, 10);
 
     const user = await this.prisma.user.create({
       data: {
-        fullname,
+        name,
         email,
         password: hashedPassword,
       },

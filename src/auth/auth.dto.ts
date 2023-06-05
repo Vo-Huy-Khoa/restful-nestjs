@@ -12,7 +12,7 @@ export class CreateAuthDto {
 
 export class UpdateAuthDto {
   @ApiProperty()
-  fullname?: string;
+  name?: string;
 
   @ApiProperty()
   email?: string;

@@ -2,7 +2,7 @@ import { Controller, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateAuthDto, UpdateAuthDto } from './auth.dto';
 
 @ApiTags('auth')
@@ -24,6 +24,7 @@ export class AuthController {
   }
 
   @Post('protected')
+  @ApiBearerAuth() // provider token
   @UseGuards(JwtAuthGuard)
   protectedRoute(@Request() req) {
     return req.user;
