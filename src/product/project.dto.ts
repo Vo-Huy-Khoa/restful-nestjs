@@ -15,17 +15,16 @@ export class ProjectDto {
 
   @ApiProperty()
   @IsNumber()
-  @Length(2, 10)
   price: number;
 
   @ApiProperty()
   @IsString()
-  @Length(2, 20)
+  @Length(2, 10)
   color: string;
 
   @ApiProperty()
   @IsString()
-  @Length(2, 20)
+  @Length(1)
   size: string;
 
   @ApiProperty()

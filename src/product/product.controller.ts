@@ -10,13 +10,13 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { Prisma, Product } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProjectDto } from './project.dto';
 
-@ApiTags('Project') // add tag in swagger ui
+@ApiTags('project') // add tag in swagger ui
 @ApiBearerAuth() // provider token
-@Controller('products')
+@Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
 

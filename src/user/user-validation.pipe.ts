@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
-import { UserDto } from './users.dto';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UserValidationPipe implements PipeTransform {

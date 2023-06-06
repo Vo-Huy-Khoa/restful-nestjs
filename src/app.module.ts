@@ -4,26 +4,32 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtAuthService } from './jwt/jwt.service';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
-import { UsersService } from './users/users.service';
+import { UsersService } from './user/user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { PrismaService } from './prisma/prisma.service';
+import { OrderItemModule } from './order-item/order-item.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
+  //  để sắp xếp thứ tự các Controller API trong Swagger
+  // // Sắp xếp thứ tự theo mong muốn
   imports: [
-    UsersModule,
-    PrismaModule,
     AuthModule,
+    UsersModule,
+    CategoryModule,
+    PrismaModule,
     JwtModule,
     ProductModule,
-    CategoryModule,
+    OrderModule,
+    OrderItemModule,
   ],
   providers: [AuthService, JwtAuthService, UsersService, PrismaService],
 })

@@ -10,19 +10,19 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersService } from './user.service';
 import { User } from '.prisma/client';
-import { UserDto } from './users.dto';
+import { UserDto } from './user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('User') // add tag in swagger ui
+@ApiTags('user') // add tag in swagger ui
 @ApiBearerAuth() // provider token
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async getAllUsers(): Promise<User[]> {
+  async getAllUser(): Promise<User[]> {
     return this.usersService.getAllUser();
   }
 
@@ -46,7 +46,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') id: number): Promise<void> {
+  async deleteUser(@Param('id') id: number): Promise<User> {
     return this.usersService.deleteUser(id);
   }
 }

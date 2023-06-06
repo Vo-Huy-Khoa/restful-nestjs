@@ -14,7 +14,7 @@ import { Category } from '@prisma/client';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CategoryDto } from './category.dto';
 
-@ApiTags('Category') // add tag in swagger ui
+@ApiTags('category') // add tag in swagger ui
 @ApiBearerAuth() // provider token
 @Controller('category')
 export class CategoryController {
@@ -45,7 +45,7 @@ export class CategoryController {
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') id: number): Promise<void> {
+  async deleteUser(@Param('id') id: number): Promise<Category> {
     return this.categoryService.deleteCategory(id);
   }
 }
