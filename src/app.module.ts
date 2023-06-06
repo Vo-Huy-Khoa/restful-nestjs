@@ -28,8 +28,8 @@ import { OrderModule } from './order/order.module';
     PrismaModule,
     JwtModule,
     ProductModule,
-    OrderModule,
     OrderItemModule,
+    OrderModule,
   ],
   providers: [AuthService, JwtAuthService, UsersService, PrismaService],
 })
