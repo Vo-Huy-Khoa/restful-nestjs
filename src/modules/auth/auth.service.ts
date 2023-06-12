@@ -20,7 +20,7 @@ export class AuthService {
     try {
       return this.jwtService.verifyAsync(token);
     } catch (error) {
-      return new Error('Invalid token');
+      throw new Error('Invalid token');
     }
   }
 
