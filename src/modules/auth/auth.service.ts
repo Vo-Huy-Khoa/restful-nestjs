@@ -20,7 +20,7 @@ export class AuthService {
     try {
       return this.jwtService.verifyAsync(token);
     } catch (error) {
-      throw new Error('Invalid token');
+      return new Error('Invalid token');
     }
   }
 
@@ -31,7 +31,7 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new NotFoundException('User not found!');
+        return new CustomException('User not found!', 404);
       }
 
       const passwordMatch = await compare(
@@ -40,7 +40,7 @@ export class AuthService {
       );
 
       if (!passwordMatch) {
-        throw new CustomException('Invalid password! ', 402);
+        return new CustomException('Invalid password! ', 402);
       }
       const token = await this.generateToken({
         id: user.id,
@@ -49,6 +49,7 @@ export class AuthService {
       });
       return { token };
     } catch (error) {
+      console.log(error);
       throw new CustomException('Server is error! ', 500);
     }
   }
@@ -58,14 +59,22 @@ export class AuthService {
     const hashedPassword = await hash(password, 10);
 
     try {
-      const user = await this.prisma.user.create({
+      const user = await this.prisma.user.findUnique({
+        where: { email: email },
+      });
+      console.log(user);
+
+      if (user) {
+        return new CustomException('Email already exists!', 200);
+      }
+      const newUser = await this.prisma.user.create({
         data: {
           name,
           email,
           password: hashedPassword,
         },
       });
-      return user;
+      return newUser;
     } catch (error) {
       throw new CustomException('Server is error!', 500);
     }
