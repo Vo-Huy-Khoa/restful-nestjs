@@ -4,19 +4,19 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { UsersModule } from './user/user.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { JwtAuthService } from './jwt/jwt.service';
-import { AuthService } from './auth/auth.service';
-import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './modules/user/user.module';
+import { PrismaModule } from './modules/prisma/prisma.module';
+import { JwtAuthService } from './modules/jwt/jwt.service';
+import { AuthService } from './modules/auth/auth.service';
+import { AuthModule } from './modules/auth/auth.module';
 import { JwtMiddleware } from './middleware/jwt.middleware';
-import { UsersService } from './user/user.service';
+import { UsersService } from './modules/user/user.service';
 import { JwtModule } from '@nestjs/jwt';
-import { ProductModule } from './product/product.module';
-import { CategoryModule } from './category/category.module';
-import { PrismaService } from './prisma/prisma.service';
-import { OrderItemModule } from './order-item/order-item.module';
-import { OrderModule } from './order/order.module';
+import { ProductModule } from './modules/product/product.module';
+import { CategoryModule } from './modules/category/category.module';
+import { PrismaService } from './modules/prisma/prisma.service';
+import { OrderItemModule } from './modules/order-item/order-item.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   //  để sắp xếp thứ tự các Controller API trong Swagger

@@ -12,7 +12,7 @@ import { Order } from '@prisma/client';
 import { CreateOrderDto } from './order.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('orders') // add tag in swagger ui
+@ApiTags('order') // add tag in swagger ui
 @ApiBearerAuth() // provider token
 @Controller('orders')
 export class OrderController {

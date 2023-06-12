@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { JwtAuthService } from '../jwt/jwt.service';
+import { JwtAuthService } from '../modules/jwt/jwt.service';
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { compare, hash } from 'bcryptjs';
 import { CreateAuthDto, UpdateAuthDto } from './auth.dto';
 import { CustomException } from 'src/custom/exception';
