@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, Order } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './order.dto';
-import { CustomException } from 'src/custom/exception';
 
 @Injectable()
 export class OrderService {
@@ -16,7 +19,7 @@ export class OrderService {
       }
       return listOrder;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
   async createOrder(CreateOrderDto: CreateOrderDto): Promise<Order> {

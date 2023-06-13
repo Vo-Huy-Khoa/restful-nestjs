@@ -1,9 +1,14 @@
 // users.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { User } from '.prisma/client';
 import { UserDto } from './user.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { CustomException } from 'src/custom/exception';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +22,7 @@ export class UsersService {
       }
       return listUser;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -29,19 +34,17 @@ export class UsersService {
       }
       return user;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
   async createUser(createUserDto: UserDto): Promise<User> {
     try {
-      const user = this.prisma.user.create({ data: createUserDto });
-      if (!user) {
-        throw new NotFoundException('User not found');
-      }
-      return user;
+      const newUser = await this.prisma.user.create({ data: createUserDto });
+      return newUser;
     } catch (error) {
-      throw new CustomException(error, 500);
+      console.log(error);
+      throw new InternalServerErrorException('Server error!');
     }
   }
 
@@ -56,19 +59,19 @@ export class UsersService {
       }
       return user;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
   async deleteUser(id: number): Promise<User> {
     try {
-      const user = this.prisma.user.delete({ where: { id } });
+      const user = this.prisma.user.delete({ where: { id: Number(id) } });
       if (!user) {
         throw new NotFoundException('User not found');
       }
       return user;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 }

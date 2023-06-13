@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ForbiddenException, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { JwtAuthService } from '../modules/jwt/jwt.service';
+import { JwtAuthService } from './jwt.service';
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
@@ -19,10 +19,10 @@ export class JwtMiddleware implements NestMiddleware {
         req.user = decoded;
         next();
       } catch (error) {
-        res.status(401).json({ message: 'Invalid token' });
+        throw new Error('TInvalid token');
       }
     } else {
-      res.status(401).json({ message: 'Token not provided' });
+      throw new ForbiddenException('Token not provided');
     }
   }
 }

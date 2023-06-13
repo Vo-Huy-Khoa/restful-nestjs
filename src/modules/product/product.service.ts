@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Product } from '@prisma/client';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
-import { ProjectDto } from './project.dto';
-import { CustomException } from 'src/custom/exception';
+import { ProjectDto } from './product.dto';
 
 @Injectable()
 export class ProductService {
@@ -12,11 +15,11 @@ export class ProductService {
     try {
       const listProduct = this.prisma.product.findMany();
       if (!listProduct) {
-        throw new NotFoundException('User not found!');
+        throw new NotFoundException('Product not found!');
       }
       return listProduct;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -24,11 +27,11 @@ export class ProductService {
     try {
       const project = this.prisma.product.findUnique({ where: { id } });
       if (!project) {
-        throw new NotFoundException('User not found!');
+        throw new NotFoundException('Product not found!');
       }
       return project;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -36,11 +39,11 @@ export class ProductService {
     try {
       const project = this.prisma.product.create({ data: projectDto });
       if (!project) {
-        throw new NotFoundException('User not found!');
+        throw new NotFoundException('Product not found!');
       }
       return project;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -51,11 +54,11 @@ export class ProductService {
         data: projectDto,
       });
       if (!project) {
-        throw new NotFoundException('User not found!');
+        throw new NotFoundException('Product not found!');
       }
       return project;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -63,11 +66,11 @@ export class ProductService {
     try {
       const project = this.prisma.product.delete({ where: { id } });
       if (!project) {
-        throw new NotFoundException('User not found!');
+        throw new NotFoundException('Product not found!');
       }
       return project;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 }

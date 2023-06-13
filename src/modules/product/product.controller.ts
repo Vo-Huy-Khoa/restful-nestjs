@@ -12,7 +12,7 @@ import {
 import { ProductService } from './product.service';
 import { Product } from '@prisma/client';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ProjectDto } from './project.dto';
+import { ProjectDto } from './product.dto';
 
 @ApiTags('project') // add tag in swagger ui
 @ApiBearerAuth() // provider token

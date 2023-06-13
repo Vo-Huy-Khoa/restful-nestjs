@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Category } from '@prisma/client';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { CategoryDto } from './category.dto';
-import { CustomException } from 'src/custom/exception';
 
 @Injectable()
 export class CategoryService {
@@ -16,7 +19,7 @@ export class CategoryService {
       }
       return listCategory;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -30,7 +33,7 @@ export class CategoryService {
       }
       return listCategory;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -44,7 +47,7 @@ export class CategoryService {
       }
       return category;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
@@ -62,7 +65,7 @@ export class CategoryService {
       }
       return category;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
   async deleteCategory(id: number): Promise<Category> {
@@ -73,7 +76,7 @@ export class CategoryService {
       }
       return category;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 }

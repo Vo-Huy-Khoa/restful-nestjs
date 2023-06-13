@@ -1,9 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { compare, hash } from 'bcryptjs';
 import { CreateAuthDto, UpdateAuthDto } from './auth.dto';
-import { CustomException } from 'src/custom/exception';
+import { emailRegex } from 'src/shared/regex';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +37,7 @@ export class AuthService {
       });
 
       if (!user) {
-        return new CustomException('User not found!', 404);
+        throw new NotFoundException('User not found!');
       }
 
       const passwordMatch = await compare(
@@ -40,7 +46,7 @@ export class AuthService {
       );
 
       if (!passwordMatch) {
-        return new CustomException('Invalid password! ', 402);
+        return new Error('Invalid password! ');
       }
       const token = await this.generateToken({
         id: user.id,
@@ -49,23 +55,24 @@ export class AuthService {
       });
       return { token };
     } catch (error) {
-      console.log(error);
-      throw new CustomException('Server is error! ', 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 
   async register(updateAuthDto: UpdateAuthDto): Promise<any> {
     const { name, email, password } = updateAuthDto;
     const hashedPassword = await hash(password, 10);
+    if (!emailRegex.test(email)) {
+      return new BadRequestException('Invalid email!');
+    }
 
     try {
       const user = await this.prisma.user.findUnique({
         where: { email: email },
       });
-      console.log(user);
 
       if (user) {
-        return new CustomException('Email already exists!', 200);
+        return new ConflictException('Email already exists');
       }
       const newUser = await this.prisma.user.create({
         data: {
@@ -76,7 +83,7 @@ export class AuthService {
       });
       return newUser;
     } catch (error) {
-      throw new CustomException('Server is error!', 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 }

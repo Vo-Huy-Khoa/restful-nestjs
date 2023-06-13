@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma, OrderItem, Order } from '@prisma/client';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
+import { Prisma, OrderItem } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderItemDto } from './order-item.dto';
-import { CustomException } from 'src/custom/exception';
 
 @Injectable()
 export class OrderItemService {
@@ -16,7 +19,7 @@ export class OrderItemService {
       }
       return listOrderItem;
     } catch (error) {
-      throw new CustomException(error, 500);
+      throw new InternalServerErrorException('Server is error!');
     }
   }
 

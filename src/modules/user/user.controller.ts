@@ -1,4 +1,3 @@
-// users.controller.ts
 import {
   Controller,
   Get,
@@ -8,15 +7,15 @@ import {
   Body,
   Param,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { User } from '.prisma/client';
 import { UserDto } from './user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserPipe } from './user.pipe';
 
-@ApiTags('user') // add tag in swagger ui
-@ApiBearerAuth() // provider token
+@ApiTags('user')
+@ApiBearerAuth()
 @Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -32,12 +31,13 @@ export class UsersController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new UserPipe())
   async createUser(@Body() createUserDto: UserDto): Promise<User> {
     return this.usersService.createUser(createUserDto);
   }
 
   @Put(':id')
+  @UsePipes(new UserPipe())
   async updateUser(
     @Param('id') id: number,
     @Body() updateUserDto: UserDto,

@@ -6,10 +6,10 @@ import {
 } from '@nestjs/common';
 import { UsersModule } from './modules/user/user.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
-import { JwtAuthService } from './modules/jwt/jwt.service';
+import { JwtAuthService } from './middleware/jwt/jwt.service';
 import { AuthService } from './modules/auth/auth.service';
 import { AuthModule } from './modules/auth/auth.module';
-import { JwtMiddleware } from './middleware/jwt.middleware';
+import { JwtMiddleware } from './middleware/jwt/jwt.middleware';
 import { UsersService } from './modules/user/user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ProductModule } from './modules/product/product.module';
